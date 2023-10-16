@@ -1,6 +1,6 @@
 from .models import Category, MenuItem, Cart, Order, OrderItem
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 
 class CategorySerializer(serializers.ModelSerializer):
 
@@ -49,3 +49,16 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = ['id', 'order', 'menuitem', 'quantity', 'unit_price', 'price']
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['name']
+
+class UserSerializer(serializers.ModelSerializer):
+    groups = GroupSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'groups']
