@@ -41,3 +41,28 @@ class SingleUserView(generics.RetrieveUpdateAPIView,generics.RetrieveDestroyAPIV
     def get_queryset(self):
         # Filter users who are in the 'Manager' group
         return User.objects.filter(groups__name='Manager')
+    
+# Cart management endpoints views
+
+class CartView(generics.ListCreateAPIView):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+    permission_classes = [IsAuthenticated, ReadOnlyOrUnauthorized]
+
+
+class SingleCartview(generics.RetrieveUpdateAPIView,generics.RetrieveUpdateDestroyAPIView):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+    permission_classes = [IsAuthenticated, ReadOnlyOrUnauthorized]
+    
+# Order management endpoints views
+
+class OrdersView(generics.ListCreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class =OrderSerializer
+    permission_classes = [IsAuthenticated, ReadOnlyOrUnauthorized]
+
+class SingleOrdersView(generics.RetrieveUpdateAPIView,generics.RetrieveDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class =OrderSerializer
+    permission_classes = [IsAuthenticated, ReadOnlyOrUnauthorized]
