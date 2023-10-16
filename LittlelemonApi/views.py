@@ -9,15 +9,14 @@ from rest_framework.decorators import permission_classes
 
 # Create your views here.
 
-@permission_classes([IsAuthenticated])
+
 class MenuItemView(generics.ListCreateAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
-    permission_classes = [ReadOnlyOrUnauthorized]
+    permission_classes = [IsAuthenticated, ReadOnlyOrUnauthorized]
 
 
-@permission_classes([IsAuthenticated])
 class SingleMenuItemView(generics.RetrieveUpdateAPIView,generics.RetrieveDestroyAPIView):
     queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
-    permission_classes = [ReadOnlyOrUnauthorized]
+    permission_classes = [IsAuthenticated, ReadOnlyOrUnauthorized]
